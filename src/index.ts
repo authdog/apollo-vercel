@@ -1,2 +1,2 @@
-export { ApolloServer } from "./ApolloServer"
-export type { CreateHandlerOptions } from "./ApolloServer"
+export { ApolloServer } from "./ApolloServer";
+export type { CreateHandlerOptions } from "./ApolloServer";

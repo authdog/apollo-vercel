@@ -1,11 +1,23 @@
-import { ApolloServerBase, formatApolloErrors, processFileUploads } from "apollo-server-core";
+import {
+  ApolloServerBase,
+  formatApolloErrors,
+  processFileUploads
+} from "apollo-server-core";
 import type { GraphQLOptions, FileUploadOptions } from "apollo-server-core";
 import { renderPlaygroundPage } from "@apollographql/graphql-playground-html";
 import type { RenderPageOptions as PlaygroundRenderPageOptions } from "@apollographql/graphql-playground-html";
-import type { VercelApiHandler, VercelRequest, VercelResponse } from "@vercel/node";
+import type {
+  VercelApiHandler,
+  VercelRequest,
+  VercelResponse
+} from "@vercel/node";
 import { setHeaders } from "./setHeaders";
 import { graphqlVercel } from "./vercelApollo";
-import { contentTypeAppJson, contentTypeTextHtml, contentTypeMultipart } from './contentTypes'
+import {
+  contentTypeAppJson,
+  contentTypeTextHtml,
+  contentTypeMultipart
+} from "./contentTypes";
 
 export interface CreateHandlerOptions {
   cors?: {
@@ -21,7 +33,10 @@ export interface CreateHandlerOptions {
 }
 
 export class ApolloServer extends ApolloServerBase {
-  async createGraphQLServerOptions(req: VercelRequest, res: VercelResponse): Promise<GraphQLOptions> {
+  async createGraphQLServerOptions(
+    req: VercelRequest,
+    res: VercelResponse
+  ): Promise<GraphQLOptions> {
     return super.graphQLServerOptions({ req, res });
   }
 
@@ -29,7 +44,10 @@ export class ApolloServer extends ApolloServerBase {
     return true;
   }
 
-  public createHandler({ cors, onHealthCheck }: CreateHandlerOptions = {}): VercelApiHandler {
+  public createHandler({
+    cors,
+    onHealthCheck
+  }: CreateHandlerOptions = {}): VercelApiHandler {
     const corsHeaders = new Map();
 
     if (cors) {
@@ -37,7 +55,10 @@ export class ApolloServer extends ApolloServerBase {
         if (typeof cors.methods === `string`) {
           corsHeaders.set(`access-control-allow-methods`, cors.methods);
         } else if (Array.isArray(cors.methods)) {
-          corsHeaders.set(`access-control-allow-methods`, cors.methods.join(`,`));
+          corsHeaders.set(
+            `access-control-allow-methods`,
+            cors.methods.join(`,`)
+          );
         }
       }
 
@@ -45,7 +66,10 @@ export class ApolloServer extends ApolloServerBase {
         if (typeof cors.allowedHeaders === `string`) {
           corsHeaders.set(`access-control-allow-headers`, cors.allowedHeaders);
         } else if (Array.isArray(cors.allowedHeaders)) {
-          corsHeaders.set(`access-control-allow-headers`, cors.allowedHeaders.join(`,`));
+          corsHeaders.set(
+            `access-control-allow-headers`,
+            cors.allowedHeaders.join(`,`)
+          );
         }
       }
 
@@ -53,7 +77,10 @@ export class ApolloServer extends ApolloServerBase {
         if (typeof cors.exposedHeaders === `string`) {
           corsHeaders.set(`access-control-expose-headers`, cors.exposedHeaders);
         } else if (Array.isArray(cors.exposedHeaders)) {
-          corsHeaders.set(`access-control-expose-headers`, cors.exposedHeaders.join(`,`));
+          corsHeaders.set(
+            `access-control-expose-headers`,
+            cors.exposedHeaders.join(`,`)
+          );
         }
       }
 
@@ -76,24 +103,29 @@ export class ApolloServer extends ApolloServerBase {
         } else if (
           requestOrigin &&
           (typeof cors.origin === `boolean` ||
-            (Array.isArray(cors.origin) && requestOrigin && cors.origin.includes(requestOrigin)))
+            (Array.isArray(cors.origin) &&
+              requestOrigin &&
+              cors.origin.includes(requestOrigin)))
         ) {
           requestCorsHeaders.set(`access-control-allow-origin`, requestOrigin);
         }
 
-        const requestAccessControlRequestHeaders = req.headers[`access-control-request-headers`];
+        const requestAccessControlRequestHeaders =
+          req.headers[`access-control-request-headers`];
         if (!cors.allowedHeaders && requestAccessControlRequestHeaders) {
-          requestCorsHeaders.set(`access-control-allow-headers`, requestAccessControlRequestHeaders);
+          requestCorsHeaders.set(
+            `access-control-allow-headers`,
+            requestAccessControlRequestHeaders
+          );
         }
       }
 
-      const requestCorsHeadersObject = Array.from(requestCorsHeaders).reduce<Record<string, string>>(
-        (headersObject, [key, value]) => {
-          headersObject[key] = value;
-          return headersObject;
-        },
-        {}
-      );
+      const requestCorsHeadersObject = Array.from(requestCorsHeaders).reduce<
+        Record<string, string>
+      >((headersObject, [key, value]) => {
+        headersObject[key] = value;
+        return headersObject;
+      }, {});
 
       if (req.method === `OPTIONS`) {
         setHeaders(res, requestCorsHeadersObject);
@@ -140,7 +172,9 @@ export class ApolloServer extends ApolloServerBase {
             "Content-Type": contentTypeTextHtml,
             ...requestCorsHeadersObject
           });
-          res.status(200).send(renderPlaygroundPage(playgroundRenderPageOptions));
+          res
+            .status(200)
+            .send(renderPlaygroundPage(playgroundRenderPageOptions));
           return;
         }
       }
@@ -148,7 +182,8 @@ export class ApolloServer extends ApolloServerBase {
       type NextFunction = () => Promise<void>;
 
       const fileUploadHandler = async (next: NextFunction): Promise<void> => {
-        const contentType = req.headers[`content-type`] ?? req.headers[`Content-Type`];
+        const contentType =
+          req.headers[`content-type`] ?? req.headers[`Content-Type`];
         if (
           contentType &&
           (contentType as string).startsWith(contentTypeMultipart) &&
@@ -156,11 +191,15 @@ export class ApolloServer extends ApolloServerBase {
         ) {
           try {
             // eslint-disable-next-line require-atomic-updates
-            req.body = await processFileUploads(req, res, this.uploadsConfig ?? {});
+            req.body = await processFileUploads(
+              req,
+              res,
+              this.uploadsConfig ?? {}
+            );
             await next();
           } catch (error: unknown) {
             if (error instanceof Error) {
-              // eslint-disable-next-line @typescript-eslint/no-throw-literal
+              // eslint-disable-next-line
               throw formatApolloErrors([error], {
                 formatter: this.requestOptions.formatError,
                 debug: this.requestOptions.debug

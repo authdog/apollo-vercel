@@ -1,5 +1,5 @@
 {
-  "name": "@saeris/apollo-server-vercel",
+  "name": "@authdog/apollo-lambda-vercel",
   "description": "Production-ready Node.js GraphQL server for Vercel Serverless Functions",
   "version": "1.0.1",
   "keywords": [
@@ -9,7 +9,7 @@
     "Vercel",
     "Typescript"
   ],
-  "author": "Drake Costa <drake@saeris.io> (https://github.com/Saeris/)",
+  "author": "Authdog",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -34,13 +34,15 @@
     "lint": "yarn test:lint",
     "release": "np",
     "start": "vercel dev",
-    "test": "yarn test:lint && yarn test:typecheck && yarn test:unit",
+    "test:all": "yarn test:lint && yarn test:typecheck && yarn test:unit",
     "test:lint": "eslint \"./src/**/*.{j,t}s?(x)\"",
     "test:typecheck": "tsc --noEmit",
     "test:unit": "jest",
     "test:watch": "yarn test:unit --watch",
+    "test": "yarn test:unit",
     "typecheck": "yarn test:typecheck",
-    "version": "yarn build"
+    "version": "yarn build",
+    "pretty": "npx prettier --write src"
   },
   "dependencies": {
     "@apollographql/graphql-playground-html": "1.6.29",
@@ -49,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.5",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-typescript": "^7.16.0",
     "@pika/pack": "^0.5.0",

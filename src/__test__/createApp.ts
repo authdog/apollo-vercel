@@ -4,7 +4,9 @@ import type { Config } from "apollo-server-core";
 import { ApolloServer } from "../ApolloServer";
 import { schema } from "./schema";
 
-export const createApp = (options?: Config): ReturnType<typeof createServer> => {
+export const createApp = (
+  options?: Config
+): ReturnType<typeof createServer> => {
   const server = new ApolloServer(options ?? { schema });
   const handler = server.createHandler();
   return createServer((req, res) => {
@@ -17,7 +19,9 @@ export const createApp = (options?: Config): ReturnType<typeof createServer> => 
   });
 };
 
-export const createCORSApp = (options?: Config): ReturnType<typeof createServer> => {
+export const createCORSApp = (
+  options?: Config
+): ReturnType<typeof createServer> => {
   const server = new ApolloServer(options ?? { schema });
   const handler = server.createHandler({
     cors: {
