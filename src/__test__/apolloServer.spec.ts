@@ -20,6 +20,7 @@ describe(`apolloServer`, () => {
   >;
 
   afterEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (app) {
       app = null;
     }

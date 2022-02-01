@@ -1,9 +1,9 @@
 {
-	"name": "⚫ Apollo Server Vercel",
-	"description": "Production-ready Node.js GraphQL server for Vercel Serverless Functions",
+	"name": "Apollo Lambda Vercel",
+	"description": "GraphQL server wrapper for Vercel Serverless Functions",
 	"noHeader": true,
-	"homepage:": "http://saeris.io",
-	"repo": "https://github.com/saeris/apollo-server-vercel",
+	"homepage:": "https://www.authdog.com",
+	"repo": "https://github.com/authdog/apollo-vercel",
 	"favicon": "static/favicon.ico",
 	"styles": "styles/styles.css"
 }

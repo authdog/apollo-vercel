@@ -5,6 +5,7 @@ import type { RenderPageOptions as PlaygroundRenderPageOptions } from "@apollogr
 import type { VercelApiHandler, VercelRequest, VercelResponse } from "@vercel/node";
 import { setHeaders } from "./setHeaders";
 import { graphqlVercel } from "./vercelApollo";
+import { contentTypeAppJson, contentTypeTextHtml, contentTypeMultipart } from './contentTypes'
 
 export interface CreateHandlerOptions {
   cors?: {
@@ -103,7 +104,7 @@ export class ApolloServer extends ApolloServerBase {
       if (req.url === `/.well-known/apollo/server-health`) {
         const successfulResponse = (): VercelResponse => {
           setHeaders(res, {
-            "Content-Type": `application/json`,
+            "Content-Type": contentTypeAppJson,
             ...requestCorsHeadersObject
           });
           return res.status(200).json({ status: `pass` });
@@ -114,7 +115,7 @@ export class ApolloServer extends ApolloServerBase {
             successfulResponse();
           } catch {
             setHeaders(res, {
-              "Content-Type": `application/json`,
+              "Content-Type": contentTypeAppJson,
               ...requestCorsHeadersObject
             });
             res.status(503).json({ status: `fail` });
@@ -128,7 +129,7 @@ export class ApolloServer extends ApolloServerBase {
 
       if (this.playgroundOptions && req.method === `GET`) {
         const acceptHeader = req.headers.Accept ?? req.headers.accept;
-        if (acceptHeader?.includes(`text/html`)) {
+        if (acceptHeader?.includes(contentTypeTextHtml)) {
           const path = req.url ?? `/`;
           const playgroundRenderPageOptions: PlaygroundRenderPageOptions = {
             endpoint: path,
@@ -136,7 +137,7 @@ export class ApolloServer extends ApolloServerBase {
           };
 
           setHeaders(res, {
-            "Content-Type": `text/html`,
+            "Content-Type": contentTypeTextHtml,
             ...requestCorsHeadersObject
           });
           res.status(200).send(renderPlaygroundPage(playgroundRenderPageOptions));
@@ -150,7 +151,7 @@ export class ApolloServer extends ApolloServerBase {
         const contentType = req.headers[`content-type`] ?? req.headers[`Content-Type`];
         if (
           contentType &&
-          (contentType as string).startsWith(`multipart/form-data`) &&
+          (contentType as string).startsWith(contentTypeMultipart) &&
           typeof processFileUploads === `function`
         ) {
           try {

@@ -13,11 +13,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/saeris/apollo-server-vercel.git"
+    "url": "https://github.com/authdog/apollo-vercel.git"
   },
-  "homepage": "https://github.com/saeris/apollo-server-vercel#readme",
+  "homepage": "https://github.com/authdog/apollo-vercel#readme",
   "bugs": {
-    "url": "https://github.com/saeris/apollo-server-vercel/issues"
+    "url": "https://github.com/authdog/apollo-vercel/issues"
   },
   "publishConfig": {
     "access": "public",
@@ -25,7 +25,7 @@
   },
   "main": "src/index.ts",
   "engines": {
-    "node": ">=12 <15"
+    "node": ">=12"
   },
   "scripts": {
     "ci": "yarn install --ignore-scripts --frozen-lockfile --silent --non-interactive",
