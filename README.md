@@ -1,9 +1,11 @@
 <h1 align="center" style="display: block; text-align: center;">⚫ Apollo Server Vercel</h1>
 <p align="center"><!--<a href="https://www.npmjs.org/package/@saeris/apollo-server-vercel"><img src="https://img.shields.io/npm/v/@saeris/apollo-server-vercel.svg?style=flat" alt="npm"></a>
   <a href="https://codecov.io/gh/Saeris/apollo-server-vercel"><img src="https://codecov.io/gh/Saeris/apollo-server-vercel/branch/master/graph/badge.svg" alt="codecov"/></a></p>-->
-[![atdg-lib-apollo-vercel](https://github.com/authdog/apollo-vercel/actions/workflows/test.yml/badge.svg)](https://github.com/authdog/apollo-vercel/actions/workflows/test.yml)  
+
 
 </p>
+
+[![atdg-lib-apollo-vercel](https://github.com/authdog/apollo-vercel/actions/workflows/test.yml/badge.svg)](https://github.com/authdog/apollo-vercel/actions/workflows/test.yml)  
   
   
 <p align="center">Production-ready Node.js GraphQL server for <a href="https://vercel.com/">Vercel</a> Serverless Functions</a>.</p>
