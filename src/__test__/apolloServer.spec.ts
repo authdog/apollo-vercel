@@ -1018,7 +1018,7 @@ describe(`apolloServer`, () => {
         query
       });
 
-      // eslint-disable-next-line 
+      // eslint-disable-next-line
       expect(cache.set).toHaveBeenCalledWith(
         expect.stringMatching(/^apq:/),
         query,
@@ -1037,7 +1037,7 @@ describe(`apolloServer`, () => {
         query
       });
 
-      // eslint-disable-next-line 
+      // eslint-disable-next-line
       expect(cache.set).toHaveBeenCalledWith(
         expect.stringMatching(/^apq:/),
         `{testString}`,

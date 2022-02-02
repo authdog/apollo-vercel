@@ -28,14 +28,14 @@ const resolvers = {
   },
   Mutation: {
     async singleUpload(_parent: unknown, { file }: { file: any }) {
-      // eslint-disable-next-line 
+      // eslint-disable-next-line
       expect((await file).createReadStream).toBeDefined();
       return file;
     },
     async multiUpload(_parent: unknown, { files }: { files: any }) {
       const fileArray = await files;
       fileArray.forEach(async (file: any) => {
-        // eslint-disable-next-line 
+        // eslint-disable-next-line
         expect((await file).createReadStream).toBeDefined();
       });
       return fileArray;
