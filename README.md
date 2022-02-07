@@ -19,9 +19,9 @@
 In an existing application deployable to Vercel (such as [create-next-app](https://nextjs.org/blog/create-next-app)), add the following to your project's dependencies:
 
 ```bash
-npm install --save @saeris/apollo-server-vercel graphql
+npm install --save @authdog/apollo-lambda-vercel graphql
 # or
-yarn add @saeris/apollo-server-vercel graphql
+yarn add @authdog/apollo-lambda-vercel graphql
 ```
 
 Only clone this repository if you intend to contribute to the development of this library! Please read the [Contributing](#%EF%B8%8F-contributing) section below for more details.
@@ -35,7 +35,7 @@ Please read Vercel's documentation on [how to deploy a serverless function](http
 // Vercel: ./api/<endpoint-name>.{js|ts}
 // Nextjs: ./pages/api/<endpoint-name>.{js|ts} or ./src/pages/api/<endpoint-name>.{js|ts}
 
-import { ApolloServer } from "@saeris/apollo-server-vercel";
+import { ApolloServer } from "@authdog/apollo-lambda-vercel";
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = `
