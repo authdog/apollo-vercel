@@ -1,19 +1,28 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "es6",
     "target": "es5",
     "jsx": "preserve",
     "lib": ["esnext", "dom", "dom.iterable"],
     "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": false,
     "preserveConstEnums": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
+    "outDir": "dist",
+    "baseUrl": ".",
     "sourceMap": true,
-    "outDir": "dist"
+    "strictNullChecks": false,
+    "noUnusedLocals": true,
+    "pretty": true,
+    "skipLibCheck": true
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "**/__mocks__/**/*", "**/__test__/**/*", "**/*.spec.ts"]
