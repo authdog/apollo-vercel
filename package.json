@@ -29,10 +29,8 @@
   },
   "scripts": {
     "ci": "yarn install --ignore-scripts --frozen-lockfile --silent --non-interactive",
-    "build": "pika build",
     "build:docs": "fiddly",
     "lint": "yarn test:lint",
-    "release": "np",
     "start": "vercel dev",
     "test:all": "yarn test:lint && yarn test:typecheck && yarn test:unit",
     "test:lint": "eslint \"./src/**/*.{j,t}s?(x)\"",
@@ -42,7 +40,11 @@
     "test": "yarn test:unit",
     "typecheck": "yarn test:typecheck",
     "version": "yarn build",
-    "pretty": "npx prettier --write src"
+    "pretty": "npx prettier --write src",
+    "lib:clean": "rm -rf dist",
+    "build": "yarn lib:clean &&  tsc",
+    "postbuild": "ts-node scripts/copy",
+    "lib:publish": "yarn build && npm adduser && npm publish ./dist --access=public"
   },
   "dependencies": {
     "@apollographql/graphql-playground-html": "1.6.29",
@@ -73,7 +75,6 @@
     "js-sha256": "^0.9.0",
     "lint-staged": "^12.1.2",
     "micro": "^9.3.4",
-    "np": "^7.6.0",
     "prettier": "2.4.1",
     "supertest": "^6.1.6",
     "typescript": "4.4.4",
@@ -85,26 +86,6 @@
   },
   "resolutions": {
     "graphql": "^15.x"
-  },
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-standard-pkg",
-        {
-          "exclude": [
-            "*.gql",
-            "__mocks__/**/*",
-            "__test__/**/*"
-          ]
-        }
-      ],
-      [
-        "@pika/plugin-build-node"
-      ],
-      [
-        "@pika/plugin-build-types"
-      ]
-    ]
   },
   "husky": {
     "hooks": {

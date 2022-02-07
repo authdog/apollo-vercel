@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "target": "ES2018",
+    "target": "es5",
     "jsx": "preserve",
     "lib": ["esnext", "dom", "dom.iterable"],
     "strict": true,
@@ -12,7 +12,8 @@
     "removeComments": false,
     "preserveConstEnums": true,
     "moduleResolution": "node",
-    "sourceMap": true
+    "sourceMap": true,
+    "outDir": "dist"
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "**/__mocks__/**/*", "**/__test__/**/*", "**/*.spec.ts"]
