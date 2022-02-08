@@ -1,7 +1,7 @@
 {
   "name": "@authdog/apollo-lambda-vercel",
   "description": "Production-ready Node.js GraphQL server for Vercel Serverless Functions",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "keywords": [
     "GraphQL",
     "Apollo",
@@ -42,9 +42,8 @@
     "version": "yarn build",
     "pretty": "npx prettier --write src",
     "lib:clean": "rm -rf dist",
-    "build": "yarn lib:clean &&  tsc",
-    "postbuild": "ts-node scripts/copy",
-    "lib:publish": "yarn build && npm adduser && npm publish ./dist --access=public"
+    "build": "yarn lib:clean && pika build",
+    "lib:publish": "yarn build && pika publish"
   },
   "dependencies": {
     "@apollographql/graphql-playground-html": "1.6.29",
@@ -91,5 +90,25 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg",
+        {
+          "exclude": [
+            "*.gql",
+            "__mocks__/**/*",
+            "__test__/**/*"
+          ]
+        }
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-types"
+      ]
+    ]
   }
 }
