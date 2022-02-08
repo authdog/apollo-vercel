@@ -12,10 +12,7 @@ export class HelloDirective extends SchemaDirectiveVisitor {
     return new GraphQLDirective({
       name: directiveName,
       locations: [DirectiveLocation.FIELD_DEFINITION],
-      args: {
-        scopes: { type: GraphQLString },
-        grantedOrigins: { type: GraphQLString }
-      }
+      args: {}
     });
   }
 
