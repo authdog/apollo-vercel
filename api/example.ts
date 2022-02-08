@@ -25,6 +25,7 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  schemaDirectives,
   // By default, the GraphQL Playground interface and GraphQL introspection
   // is disabled in "production" (i.e. when `process.env.NODE_ENV` is `production`).
   //
