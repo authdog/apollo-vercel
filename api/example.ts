@@ -1,16 +1,24 @@
 import { ApolloServer } from "../src";
+import {HelloDirective} from './HelloDirective'
 
-// Construct a schema, using GraphQL schema language
+
 const typeDefs = `
+  directive @helloDir on QUERY | FIELD_DEFINITION
+
   type Query {
-    hello: String
+    hello: String @helloDir
   }
 `;
 
-// Provide resolver functions for your schema fields
+export const schemaDirectives = {
+  helloDir: HelloDirective,
+};
+
 const resolvers = {
   Query: {
-    hello: (): string => `Hello world!`
+    hello: (_,__, ___, info) => {
+      return "Hello world!" 
+    }
   }
 };
 
